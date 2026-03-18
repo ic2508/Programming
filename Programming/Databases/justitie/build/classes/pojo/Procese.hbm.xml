@@ -1,0 +1,42 @@
+<?xml version="1.0"?> 
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="pojo.Procese" table="Procese" catalog="justitie"
+           optimistic-lock="version">
+
+        <id name="ID_Proces" type="java.lang.Integer">
+            <column name="ID_Proces" />
+            <generator class="identity" />
+        </id>
+
+        <property name="Numar_Dosar" type="string">
+            <column name="Numar_Dosar" length="45" />
+        </property>
+
+        <property name="Tip_Proces" type="string">
+            <column name="Tip_Proces" length="45" />
+        </property>
+
+        <property name="Stadiu" type="string">
+            <column name="Stadiu" length="45" />
+        </property>
+        
+        <property name="Data_Inregistrarii" type="date">
+    		<column name="Data_Inregistrarii" not-null="true"/>
+		</property>
+
+		<property name="Denumire" type="string">
+    		<column name="Denumire" length="255"/>
+		</property>
+
+        <!-- AICI modificarea importantă -->
+        <set name="cazuri" table="Cazuri" inverse="true"
+             lazy="true" fetch="select" cascade="all-delete-orphan">
+            <key>
+                <column name="ID_Proces" />
+            </key>
+            <one-to-many class="pojo.Cazuri" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?> 
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="pojo.Judecatori" table="Judecatori" catalog="justitie"
+           optimistic-lock="version">
+
+        <id name="ID_Judecator" type="java.lang.Integer">
+            <column name="ID_Judecator" />
+            <generator class="identity" />
+        </id>
+
+        <property name="Nume_Judecator" type="string">
+            <column name="Nume_Judecator" length="45" />
+        </property>
+
+        <property name="Prenume_Judecator" type="string">
+            <column name="Prenume_Judecator" length="45" />
+        </property>
+
+        <property name="CNP" type="string">
+            <column name="CNP" length="45" />
+        </property>
+        
+        <property name="Data_Nasterii" type="date">
+    		<column name="Data_Nasterii" not-null="true"/>
+		</property>
+
+		<property name="Grad" type="string">
+   			<column name="Grad" length="50"/>
+		</property>
+
+        <!-- AICI modificarea importantă -->
+        <set name="cazuri" table="Cazuri" inverse="true"
+             lazy="true" fetch="select" cascade="all-delete-orphan">
+            <key>
+                <column name="ID_Judecator" />
+            </key>
+            <one-to-many class="pojo.Cazuri" />
+        </set>
+    </class>
+</hibernate-mapping>

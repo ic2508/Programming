@@ -1,0 +1,180 @@
+.page-justice {
+    background: url("../img/justice.jpg") no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Georgia, serif;
+}
+
+.justice-card {
+    background: rgba(255, 245, 225, 0.65);
+    padding: 30px 50px;
+    border-radius: 35px;
+    text-align: center;
+    box-shadow: 0 0 25px rgba(0,0,0,0.25);
+    backdrop-filter: blur(4px);
+    width: 420px;
+}
+
+.justice-title {
+    font-size: 32px;
+    margin-bottom: 30px;
+    color: #4b3b2b;
+    font-weight: bold;
+}
+
+.justice-btn {
+    display: block;
+    width: 220px;
+    margin: 12px auto;
+    padding: 14px;
+    border-radius: 30px;
+    background-color: #f0b82a;
+    color: #4b3b2b;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+    border: none;
+}
+
+.justice-btn:hover {
+    background-color: #e0a61e;
+    transform: scale(1.05);
+}
+
+select.justice-btn,
+input[type="submit"].justice-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 30px;
+    border: none;
+    background-color: #f0b82a;
+    color: #4b3b2b;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+}
+
+select.justice-btn:hover,
+input[type="submit"].justice-btn:hover {
+    background-color: #e0a61e;
+    transform: scale(1.03);
+}
+
+.justice-table {
+    width: max-content;
+    min-width: 100%;
+    border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #ffffffd9;
+    font-family: Georgia, serif;
+}
+
+.justice-table th {
+    background: #f0b82a;
+    color: #4b3b2b;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+}
+
+.justice-table td {
+    padding: 10px;
+    border-bottom: 1px solid #d1c5b4;
+}
+
+.justice-table tr:nth-child(even) {
+    background: #fff8e6;
+}
+
+.justice-table tr:nth-child(odd) {
+    background: #ffffff;
+}
+
+.justice-table tr:hover {
+    background: #ffe7a8;
+    transition: 0.2s;
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f4e7d1; 
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #d6a73b;
+    border-radius: 10px;
+    border: 2px solid #f4e7d1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #c4912d;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #d6a73b #f4e7d1;
+}
+
+
+.justice-btn.danger {
+    background-color: #c0392b !important;;
+    color: white;
+}
+
+.justice-btn.danger:hover {
+    background-color: #a93226 !important;;
+}
+
+.justice-btn.success {
+    background-color: #27ae60 !important;;
+    color: white;
+}
+
+.justice-btn.success:hover {
+    background-color: #1e8449 !important;;
+}
+
+.justice-btn.secondary {
+    background-color: #ffffff !important;;
+    color: #4b3b2b;
+    border: 2px solid #d1c5b4;
+}
+
+.justice-btn.secondary:hover {
+    background-color: #f4f1eb;
+}
+
+.justice-actions-row,
+.justice-nav-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.justice-btn-inline {
+    display: inline-flex;
+    width: auto;
+    margin: 0;
+    padding: 14px 26px;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0"?> 
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="pojo.Cazuri" table="Cazuri"
+		catalog="justitie" optimistic-lock="version">
+		<id name="ID_Caz" type="java.lang.Integer">
+			<column name="ID_Caz" />
+			<generator class="identity" />
+		</id>
+		<many-to-one name="procese" class="pojo.Procese"
+			 fetch="join" lazy="false">
+			<column name="ID_Proces" />
+		</many-to-one>
+		<many-to-one name="judecatori" class="pojo.Judecatori"
+			fetch="join" lazy="false">
+			<column name="ID_Judecator" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Justiție - Gestionare Cazuri Juridice</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Georgia", serif;
+            background: url("img/justice.jpg") no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .overlay {
+            background: rgba(255, 245, 225, 0.7);
+            padding: 40px 60px;
+            border-radius: 35px;
+            text-align: center;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 0 25px rgba(0,0,0,0.25);
+            width: 320px;
+        }
+
+        h2 {
+            margin-bottom: 25px;
+            color: #4b3b2b;
+        }
+
+        .section-title {
+    		font-size: 22px;
+    		font-weight: bold;
+    		margin: 25px 0 15px;
+    		color: #4b3b2b;
+    		letter-spacing: 1px;
+}
+
+        .btn {
+    		display: block;
+    		width: 85%;
+    		margin: 12px auto;
+    		padding: 14px;
+    		border-radius: 30px;
+    		background-color: #f0b82a;
+    		color: #4b3b2b;
+    		font-size: 18px;
+    		font-weight: bold;
+    		text-decoration: none;
+    		text-align: center;
+    		transition: 0.3s;
+}
+
+        .btn:hover {
+            background-color: #e0a61e;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="overlay">
+
+        <h2>🏛️ Sistem de Gestionare a Cazurilor Juridice 🏛️</h2>
+        
+        <div class="section-title">🗂️ Tabele 🗂️</div>
+		
+		<a href="tabela_cazuri.jsp" class="btn">Tabelă cazuri</a>
+        <a href="tabela_judecatori.jsp" class="btn">Tabelă judecători</a>
+        <a href="tabela_procese.jsp" class="btn">Tabelă procese</a>
+        
+
+        <div class="section-title">⚙️ Modificări ⚙️</div>
+        
+		<a href="modifica_caz.jsp" class="btn">Modifică cazuri</a>
+        <a href="modifica_judecator.jsp" class="btn">Modifică judecători</a>
+        <a href="modifica_proces.jsp" class="btn">Modifică procese</a>
+
+    </div>
+
+</body>
+</html>

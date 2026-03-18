@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+	<servlet>
+		<servlet-name>JudecatoriController</servlet-name>
+		<servlet-class>Controller.JudecatoriController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ProceseController</servlet-name>
+		<servlet-class>Controller.ProceseController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>CazuriController</servlet-name>
+		<servlet-class>Controller.CazuriController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+
+
+
+		<servlet-name>JudecatoriController</servlet-name>
+		<url-pattern>/JudecatoriController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ProceseController</servlet-name>
+		<url-pattern>/ProceseController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CazuriController</servlet-name>
+		<url-pattern>/CazuriController</url-pattern>
+	</servlet-mapping>
+	<session-config>
+		<session-timeout>
+			30
+		</session-timeout>
+	</session-config>
+	<welcome-file-list>
+		<welcome-file>adauga_Judecator.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>

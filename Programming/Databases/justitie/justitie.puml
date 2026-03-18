@@ -1,0 +1,91 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+interface JudecatoriDao {
+  +adaugaJudecator(j: Judecatori)
+  +afiseazaJudecatori(): List<Judecatori>
+  +modificaJudecator(...)
+  +stergeJudecator(j: Judecatori)
+  +stergeTotiJudecatorii()
+}
+
+interface ProceseDao {
+  +adaugaProces(p: Procese)
+  +afiseazaProcese(): List<Procese>
+  +modificaProces(...)
+  +stergeProces(p: Procese)
+  +stergeToateProcesele()
+}
+
+interface CazuriDao {
+  +adaugaCaz(c: Cazuri)
+  +afiseazaCazuri(): List<Cazuri>
+  +modificaCaz(...)
+  +stergeCaz(id: int)
+  +stergeToateCazurile()
+}
+
+class JudecatoriDaoImpl
+class ProceseDaoImpl
+class CazuriDaoImpl
+
+JudecatoriDao <|.. JudecatoriDaoImpl
+ProceseDao <|.. ProceseDaoImpl
+CazuriDao <|.. CazuriDaoImpl
+
+JudecatoriDaoImpl ..> HibernateUtil : use
+ProceseDaoImpl ..> HibernateUtil : use
+CazuriDaoImpl ..> HibernateUtil : use
+
+class Judecatori {
+  -ID_Judecator: int
+  -Nume_Judecator: String
+  -Prenume_Judecator: String
+  -CNP: String
+  -Data_Nasterii: Date
+  -Grad: String
+}
+
+class Procese {
+  -ID_Proces: int
+  -Numar_Dosar: String
+  -Tip_Proces: String
+  -Stadiu: String
+  -Data_Inregistrarii: Date
+  -Denumire: String
+}
+
+class Cazuri {
+  -ID_Caz: int
+}
+
+Judecatori "1" -- "0..*" Cazuri
+Procese "1" -- "0..*" Cazuri
+
+Cazuri --> Judecatori : ManyToOne
+Cazuri --> Procese : ManyToOne
+
+class JudecatoriController {
+  +doGet()
+  +doPost()
+}
+
+class ProceseController {
+  +doGet()
+  +doPost()
+}
+
+class CazuriController {
+  +doGet()
+  +doPost()
+}
+
+JudecatoriController --> JudecatoriDaoImpl
+ProceseController --> ProceseDaoImpl
+CazuriController --> CazuriDaoImpl
+
+class HibernateUtil {
+  +getSessionFactory()
+}
+
+@enduml

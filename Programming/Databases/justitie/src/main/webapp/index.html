@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Justiție - Gestionare Cazuri Juridice</title>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Georgia", serif;
+            background: url("img/justice.jpg") no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .overlay {
+            background: rgba(255, 245, 225, 0.65);
+            padding: 30px 50px;
+            border-radius: 35px;
+            text-align: center;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 0 25px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #4b3b2b;
+            font-weight: bold;
+        }
+
+        .btn {
+            display: block;
+            width: 200px;
+            margin: 12px auto;
+            padding: 14px;
+            border: none;
+            border-radius: 30px;
+            background-color: #f0b82a;
+            color: #4b3b2b;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #e0a61e;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay">
+        <h1>🏛️ Sistem de Gestionare a Cazurilor Juridice 🏛️</h1>
+
+        <a href="adauga_caz.jsp" class="btn">Cazuri</a>
+        <a href="adauga_judecator.jsp" class="btn">Judecători</a>
+        <a href="adauga_proces.jsp" class="btn">Procese</a>
+    </div>
+
+</body>
+</html>

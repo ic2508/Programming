@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE hibernate-reverse-engineering SYSTEM "hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+	<schema-selection match-catalog="justitie" />
+	<table-filter match-name="Procese" />
+	<table-filter match-name="Judecatori" />
+	<table-filter match-name="Cazuri" />
+</hibernate-reverse-engineering> 
