@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparare camere</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}"></div>
+<main class="container section">
+    <h1>Comparare camere foto</h1>
+    <div class="card form-card">
+        <form th:action="@{/compare}" method="get" class="checkbox-grid">
+            <label th:each="camera : ${allCameras}">
+                <input type="checkbox" name="ids" th:value="${camera.id}" th:checked="${ids.contains(camera.id)}">
+                <span th:text="${camera.fullName}"></span>
+            </label>
+            <button class="btn" type="submit">Compara</button>
+        </form>
+    </div>
+    <div class="table-wrapper" th:if="${!selected.isEmpty()}">
+        <table class="data-table">
+            <thead>
+            <tr>
+                <th>Camera</th>
+                <th>Tip</th>
+                <th>Fotografie</th>
+                <th>Rezolutie</th>
+                <th>Autonomie</th>
+                <th>Senzor</th>
+                <th>Video</th>
+                <th>Rating</th>
+                <th>Pret</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="camera : ${selected}">
+                <td th:text="${camera.fullName}"></td>
+                <td th:text="${camera.type}"></td>
+                <td th:text="${camera.photographyType}"></td>
+                <td><span th:text="${camera.resolutionMp}"></span> MP</td>
+                <td><span th:text="${camera.batteryShots}"></span> cadre</td>
+                <td th:text="${camera.sensor}"></td>
+                <td th:text="${camera.video}"></td>
+                <td><span th:text="${camera.ratingLabel}">Not rated</span></td>
+                <td><span th:text="${camera.price}"></span> RON</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+</body>
+</html>

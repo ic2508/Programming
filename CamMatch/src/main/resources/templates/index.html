@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CamMatch</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}"></div>
+<main class="container hero">
+    <section class="hero-card">
+        <div>
+            <p class="eyebrow">Recomandari foto personalizate</p>
+            <h1>Alege camera foto potrivita pentru stilul tau.</h1>
+            <p>CamMatch analizeaza bugetul, brandul preferat, tipul de fotografie, rezolutia si autonomia dorita pentru a genera recomandari clare.</p>
+            <div class="actions">
+                <a class="btn" th:href="@{/recommendations}">Genereaza recomandari</a>
+                <a class="btn secondary" th:href="@{/cameras}">Vezi camere</a>
+            </div>
+        </div>
+        <div class="stats-card">
+            <strong th:text="${cameraCount}">0</strong>
+            <span>camere in baza de date</span>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Camere recomandate</h2>
+        <div class="grid cards-3">
+            <article class="card" th:each="camera : ${featuredCameras}">
+                <img th:src="${camera.imageUrl == null || camera.imageUrl.isBlank() ? '/images/camera-placeholder.svg' : camera.imageUrl}" alt="Camera foto" class="camera-img" onerror="this.onerror=null;this.src='/images/camera-placeholder.svg';">
+                <h3 th:text="${camera.fullName}">Camera</h3>
+                <div class="rating-line"><span class="star-rating" aria-label="Rating"><span class="star-bg">★★★★★</span><span class="star-fill" th:style="|width: ${camera.starPercent}%|">★★★★★</span></span> <strong class="rating-value" th:text="${camera.ratingLabel}">Not rated</strong> <span class="muted" th:if="${camera.ratingCount > 0}" th:text="|(${camera.ratingCount} evaluari)|"></span></div>
+                <p th:text="${camera.description}">Descriere</p>
+                <a th:href="@{/cameras/{id}(id=${camera.id})}">Detalii</a>
+            </article>
+        </div>
+    </section>
+</main>
+</body>
+</html>

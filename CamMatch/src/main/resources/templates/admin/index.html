@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - CamMatch</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}"></div>
+<main class="container section">
+    <h1>Panou administrator</h1>
+    <div class="grid cards-4">
+        <a class="card action-card" th:href="@{/admin/cameras}">
+            <strong th:text="${cameraCount}">0</strong>
+            <span>Camere</span>
+        </a>
+        <a class="card action-card" th:href="@{/admin/users}">
+            <strong th:text="${userCount}">0</strong>
+            <span>Utilizatori</span>
+        </a>
+        <a class="card action-card" th:href="@{/admin/forum}">
+            <strong th:text="${postCount}">0</strong>
+            <span>Postari</span>
+        </a>
+        <a class="card action-card" th:href="@{/admin/forum}">
+            <strong th:text="${commentCount}">0</strong>
+            <span>Comentarii</span>
+        </a>
+    </div>
+    <section class="section">
+        <div class="card action-card">
+            <strong th:text="${favoriteCount}">0</strong>
+            <span>Favorite salvate de utilizatori</span>
+            <p>Indicator adaugat din varianta cu favorite si cautare.</p>
+        </div>
+    </section>
+</main>
+</body>
+</html>

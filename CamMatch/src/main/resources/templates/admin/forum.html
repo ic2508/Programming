@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moderare forum</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}"></div>
+<main class="container section">
+    <h1>Moderare forumuri</h1>
+    <h2>Postari</h2>
+    <div class="table-wrapper">
+        <table class="data-table" data-sortable="true">
+            <thead>
+            <tr>
+                <th data-sort="text">Titlu</th>
+                <th data-sort="text">Camera</th>
+                <th data-sort="text">Autor</th>
+                <th data-sort="text">Aprobat</th>
+                <th>Actiuni</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="post : ${posts}">
+                <td th:text="${post.title}"></td>
+                <td th:text="${post.camera.fullName}"></td>
+                <td th:text="${post.author.username}"></td>
+                <td th:text="${post.approved ? 'Da' : 'Nu'}"></td>
+                <td class="actions-cell">
+                    <form th:action="@{/admin/forum/posts/{id}/toggle(id=${post.id})}" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <button class="btn small" type="submit" th:text="${post.approved ? 'Ascunde' : 'Aproba'}"></button>
+                    </form>
+                    <form th:action="@{/admin/forum/posts/{id}/delete(id=${post.id})}" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <button class="btn small danger" type="submit">Sterge</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2>Comentarii</h2>
+    <div class="table-wrapper">
+        <table class="data-table" data-sortable="true">
+            <thead>
+            <tr>
+                <th data-sort="text">Continut</th>
+                <th data-sort="text">Autor</th>
+                <th data-sort="text">Aprobat</th>
+                <th>Actiuni</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="comment : ${comments}">
+                <td th:text="${comment.content}"></td>
+                <td th:text="${comment.author.username}"></td>
+                <td th:text="${comment.approved ? 'Da' : 'Nu'}"></td>
+                <td class="actions-cell">
+                    <form th:action="@{/admin/forum/comments/{id}/toggle(id=${comment.id})}" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <button class="btn small" type="submit" th:text="${comment.approved ? 'Ascunde' : 'Aproba'}"></button>
+                    </form>
+                    <form th:action="@{/admin/forum/comments/{id}/delete(id=${comment.id})}" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <button class="btn small danger" type="submit">Sterge</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<script th:src="@{/js/table-sort.js}"></script>
+</body>
+</html>

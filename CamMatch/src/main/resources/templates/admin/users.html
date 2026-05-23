@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin utilizatori</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}"></div>
+<main class="container section">
+    <h1>Gestionare utilizatori</h1>
+    <div class="table-wrapper">
+        <table class="data-table" data-sortable="true">
+            <thead>
+            <tr>
+                <th data-sort="number">ID</th>
+                <th data-sort="text">Username</th>
+                <th data-sort="text">Email</th>
+                <th data-sort="text">Rol</th>
+                <th>Parola criptata</th>
+                <th data-sort="text">Confirmat</th>
+                <th data-sort="text">Activ</th>
+                <th>Actiune</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}" th:attr="data-sort-value=${user.id}"></td>
+                <td th:text="${user.username}" th:attr="data-sort-value=${user.username}"></td>
+                <td th:text="${user.email}" th:attr="data-sort-value=${user.email}"></td>
+                <td th:text="${user.role}" th:attr="data-sort-value=${user.role}"></td>
+                <td class="hash-cell" th:text="${user.password}"></td>
+                <td th:text="${user.confirmed ? 'Da' : 'Nu'}" th:attr="data-sort-value=${user.confirmed ? 'Da' : 'Nu'}"></td>
+                <td th:text="${user.active ? 'Da' : 'Nu'}" th:attr="data-sort-value=${user.active ? 'Da' : 'Nu'}"></td>
+                <td>
+                    <form th:action="@{/admin/users/{id}/toggle(id=${user.id})}" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <button class="btn small" type="submit" th:text="${user.active ? 'Dezactiveaza' : 'Activeaza'}"></button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<script th:src="@{/js/table-sort.js}"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recomandari - CamMatch</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}"></div>
+<main class="container section">
+    <h1>Genereaza recomandari</h1>
+    <p class="muted">Criteriile sunt salvate in profil, astfel incat poti demonstra istoricul cautarilor.</p>
+    <div class="card form-card">
+        <form th:action="@{/recommendations}" method="post" class="form grid-form">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <div>
+                <label>Buget maxim RON</label>
+                <input type="number" step="0.01" name="budget" th:value="${budget}">
+            </div>
+            <div>
+                <label>Brand preferat</label>
+                <select name="brand">
+                    <option value="">Orice brand</option>
+                    <option th:each="b : ${brands}" th:value="${b}" th:text="${b}" th:selected="${b == brand}"></option>
+                </select>
+            </div>
+            <div>
+                <label>Tip fotografie</label>
+                <select name="photographyType">
+                    <option value="">Orice tip</option>
+                    <option th:each="t : ${types}" th:value="${t}" th:text="${t}" th:selected="${t == photographyType}"></option>
+                </select>
+            </div>
+            <div>
+                <label>Rezolutie minima MP</label>
+                <input type="number" step="0.1" name="minResolution" th:value="${minResolution}">
+            </div>
+            <div>
+                <label>Autonomie minima</label>
+                <input type="number" name="minBattery" th:value="${minBattery}">
+            </div>
+            <div>
+                <label>Sortare</label>
+                <select name="sortBy">
+                    <option value="score_desc" th:selected="${sortBy == null || sortBy == 'score_desc'}">Scor recomandare</option>
+                    <option value="price_asc" th:selected="${sortBy == 'price_asc'}">Pret crescator</option>
+                    <option value="price_desc" th:selected="${sortBy == 'price_desc'}">Pret descrescator</option>
+                    <option value="resolution_desc" th:selected="${sortBy == 'resolution_desc'}">Rezolutie mare</option>
+                    <option value="battery_desc" th:selected="${sortBy == 'battery_desc'}">Autonomie mare</option>
+                    <option value="rating_desc" th:selected="${sortBy == 'rating_desc'}">Rating mare</option>
+                </select>
+            </div>
+            <button class="btn" type="submit">Genereaza</button>
+        </form>
+    </div>
+
+    <section class="section" th:if="${results != null}">
+        <h2>Rezultate</h2>
+        <p th:if="${results.isEmpty()}">Nu exista recomandari potrivite pentru criteriile alese.</p>
+        <div class="grid cards-3">
+            <article class="card" th:each="result : ${results}">
+                <img th:src="${result.camera.imageUrl == null || result.camera.imageUrl.isBlank() ? '/images/camera-placeholder.svg' : result.camera.imageUrl}" alt="Camera foto" class="camera-img" onerror="this.onerror=null;this.src='/images/camera-placeholder.svg';">
+                <h3 th:text="${result.camera.fullName}"></h3>
+                <div class="rating-line"><span class="star-rating" aria-label="Rating"><span class="star-bg">★★★★★</span><span class="star-fill" th:style="|width: ${result.camera.starPercent}%|">★★★★★</span></span> <strong class="rating-value" th:text="${result.camera.ratingLabel}">Not rated</strong> <span class="muted" th:if="${result.camera.ratingCount > 0}" th:text="|(${result.camera.ratingCount} evaluari)|"></span></div>
+                <p class="score">Scor: <strong th:text="${result.score}"></strong></p>
+                <p th:text="${result.reason}"></p>
+                <p><strong th:text="${result.camera.price}"></strong> RON</p>
+                <div class="actions">
+                    <a class="btn secondary small" th:href="@{/cameras/{id}(id=${result.camera.id})}">Detalii</a>
+                    <form th:action="@{/favorites/{id}/toggle(id=${result.camera.id})}" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <button class="btn small" type="submit">Favorite</button>
+                    </form>
+                </div>
+            </article>
+        </div>
+    </section>
+</main>
+</body>
+</html>

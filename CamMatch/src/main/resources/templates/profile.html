@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - CamMatch</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}"></div>
+<main class="container section">
+    <h1>Profilul meu</h1>
+    <div class="grid two-cols">
+        <div class="card form-card">
+            <h2>Date cont</h2>
+            <p class="muted" th:text="${user.email}">email</p>
+            <form th:action="@{/profile}" method="post" class="form">
+                <p class="alert error" th:if="${param.usernameError}">Username-ul trebuie sa aiba minimum 3 caractere.</p>
+                <p class="alert success" th:if="${param.updated}">Profilul a fost actualizat.</p>
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <label>Username</label>
+                <input type="text" name="username" th:value="${user.username}" required>
+                <label>Nivel experienta</label>
+                <select name="experienceLevel">
+                    <option value="incepator" th:selected="${user.experienceLevel == 'incepator'}">Incepator</option>
+                    <option value="mediu" th:selected="${user.experienceLevel == 'mediu'}">Mediu</option>
+                    <option value="avansat" th:selected="${user.experienceLevel == 'avansat'}">Avansat</option>
+                </select>
+                <label>Oras</label>
+                <input type="text" name="city" th:value="${user.city}" placeholder="Ex: Constanta">
+                <label>Descriere</label>
+                <textarea name="bio" rows="5" th:text="${user.bio}"></textarea>
+                <button class="btn" type="submit">Salveaza profil</button>
+            </form>
+        </div>
+        <div class="card form-card">
+            <h2>Camera mea foto</h2>
+            <div class="alert success" th:if="${param.cameraSaved}">Camera a fost salvata si apare si in lista generala de camere.</div>
+            <div class="alert success" th:if="${param.cameraDeleted}">Camera ta a fost stearsa din profil si din lista generala de camere.</div>
+            <div class="alert error" th:if="${param.cameraMissing}">Nu exista o camera salvata pentru profilul tau.</div>
+            <form th:action="@{/profile/camera}" method="post" class="form">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <div class="form-grid-2">
+                    <div>
+                        <label>Brand</label>
+                        <input type="text" name="brand" th:value="${userCamera.brand}" placeholder="Ex: Sony" required>
+                    </div>
+                    <div>
+                        <label>Model</label>
+                        <input type="text" name="model" th:value="${userCamera.model}" placeholder="Ex: ZV-E10" required>
+                    </div>
+                    <div>
+                        <label>Tip</label>
+                        <input type="text" name="type" th:value="${userCamera.type}" placeholder="Ex: Mirrorless">
+                    </div>
+                    <div>
+                        <label>Fotografie</label>
+                        <input type="text" name="photographyType" th:value="${userCamera.photographyType}" placeholder="Ex: vlogging, portret, sport">
+                    </div>
+                    <div>
+                        <label>Rezolutie MP</label>
+                        <input type="number" step="0.1" min="1" name="resolutionMp" th:value="${userCamera.resolutionMp}" placeholder="Ex: 24.2">
+                    </div>
+                    <div>
+                        <label>Autonomie</label>
+                        <input type="number" min="1" name="batteryShots" th:value="${userCamera.batteryShots}" placeholder="Ex: 440">
+                    </div>
+                    <div>
+                        <label>Senzor</label>
+                        <input type="text" name="sensor" th:value="${userCamera.sensor}" placeholder="Ex: APS-C">
+                    </div>
+                    <div>
+                        <label>Video</label>
+                        <input type="text" name="video" th:value="${userCamera.video}" placeholder="Ex: 4K">
+                    </div>
+                    <div>
+                        <label>Pret RON</label>
+                        <input type="number" step="0.01" min="0" name="price" th:value="${userCamera.price}" placeholder="Ex: 3899.00">
+                    </div>
+                    <div>
+                        <label>Imagine URL optional</label>
+                        <input type="text" name="imageUrl" th:value="${userCamera.imageUrl}" placeholder="Lasa gol pentru imaginea brandului">
+                    </div>
+                </div>
+                <label>Descriere / observatii</label>
+                <textarea name="notes" rows="5" th:text="${userCamera.notes}" placeholder="Scrie cateva detalii despre camera ta"></textarea>
+                <button class="btn" type="submit">Salveaza camera</button>
+            </form>
+            <div class="saved-camera" th:if="${savedUserCamera != null}">
+                <h3>Camera salvata in profil</h3>
+                <p><strong th:text="${savedUserCamera.brand + ' ' + savedUserCamera.model}">Camera</strong></p>
+                <div class="saved-camera-grid">
+                    <span>Tip: <strong th:text="${savedUserCamera.type == null || savedUserCamera.type.isBlank() ? 'nespecificat' : savedUserCamera.type}"></strong></span>
+                    <span>Fotografie: <strong th:text="${savedUserCamera.photographyType == null || savedUserCamera.photographyType.isBlank() ? 'nespecificat' : savedUserCamera.photographyType}"></strong></span>
+                    <span>Rezolutie: <strong th:text="${savedUserCamera.resolutionMp == null ? 'nespecificata' : savedUserCamera.resolutionMp + ' MP'}"></strong></span>
+                    <span>Autonomie: <strong th:text="${savedUserCamera.batteryShots == null ? 'nespecificata' : savedUserCamera.batteryShots + ' cadre'}"></strong></span>
+                    <span>Senzor: <strong th:text="${savedUserCamera.sensor == null || savedUserCamera.sensor.isBlank() ? 'nespecificat' : savedUserCamera.sensor}"></strong></span>
+                    <span>Video: <strong th:text="${savedUserCamera.video == null || savedUserCamera.video.isBlank() ? 'nespecificat' : savedUserCamera.video}"></strong></span>
+                    <span>Pret: <strong th:text="${savedUserCamera.price == null ? 'nespecificat' : savedUserCamera.price + ' RON'}"></strong></span>
+                </div>
+                <p th:if="${savedUserCamera.notes != null && !savedUserCamera.notes.isBlank()}" th:text="${savedUserCamera.notes}"></p>
+                <div class="action-row">
+                    <a class="btn secondary small" th:if="${savedUserCamera.publicCamera != null}" th:href="@{/cameras/{id}(id=${savedUserCamera.publicCamera.id})}">Vezi camera in lista generala</a>
+                    <form th:action="@{/profile/camera/delete}" method="post" onsubmit="return confirm('Sigur vrei sa stergi camera ta? Aceasta va fi eliminata si din lista generala de camere.');">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <button class="btn danger small" type="submit">Sterge camera mea</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="section grid two-cols align-start">
+        <div class="card">
+            <div class="page-head compact">
+                <h2>Favorite</h2>
+                <a class="btn secondary small" th:href="@{/favorites}">Vezi toate</a>
+            </div>
+            <p th:if="${favorites.isEmpty()}" class="muted">Nu ai camere favorite.</p>
+            <div class="mini-list" th:each="favorite : ${favorites}">
+                <strong th:text="${favorite.camera.fullName}">Camera</strong>
+                <span class="muted"><span th:text="${favorite.camera.price}"></span> RON</span>
+                <a th:href="@{/cameras/{id}(id=${favorite.camera.id})}">Detalii</a>
+            </div>
+        </div>
+        <div class="card">
+            <h2>Ultimele cautari</h2>
+            <p th:if="${searchHistory.isEmpty()}" class="muted">Nu ai generat inca recomandari.</p>
+            <div class="mini-list" th:each="item : ${searchHistory}">
+                <strong th:text="${#temporals.format(item.createdAt, 'dd.MM.yyyy HH:mm')}">data</strong>
+                <span class="muted">Buget: <span th:text="${item.budget == null ? 'oricare' : item.budget + ' RON'}"></span></span>
+                <span class="muted">Brand: <span th:text="${item.brand == null ? 'oricare' : item.brand}"></span></span>
+                <span class="muted">Tip: <span th:text="${item.photographyType == null ? 'oricare' : item.photographyType}"></span></span>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>
